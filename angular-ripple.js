@@ -33,7 +33,7 @@
 
               // Set ripple size
               if (!ripple.offsetHeight && !ripple.offsetWidth) {
-                size = Math.max(element[0].offsetWidth, element[0].offsetHeight);
+                size = Math.max(element[0].clientWidth, element[0].clientHeight);
                 ripple.style.width = size + 'px';
                 ripple.style.height = size + 'px';
               }
@@ -43,15 +43,11 @@
             ripple.className = ripple.className.replace(/ ?(animate)/g, '');
 
 
-<<<<<<< HEAD
             var box = element[0].getBoundingClientRect();
-=======
-            var box = element.getBoundingClientRect();
->>>>>>> a9310dd... Fixed center of el calculation
 
             if ('angularRippleCenter' in attrs && attrs.angularRippleCenter !== 'false') {
-              x = box.left + ripple.offsetWidth / 2;
-              y = box.top + ripple.offsetHeight / 2;
+              x = box.left + ripple.clientWidth / 2;
+              y = box.top + ripple.clientHeight / 2;
             } else {
               // get click coordinates by event type
               if (eventType === 'mousedown') {
@@ -71,8 +67,8 @@
                   y = origEvent.pageY;
                 } catch (e) {
                   // fall back to center of el
-                  x = box.left + ripple.offsetWidth / 2;
-                  y = box.top + ripple.offsetHeight / 2;
+                  x = box.left + ripple.clientWidth / 2;
+                  y = box.top + ripple.clientHeight / 2;
                 }
               }
             }
