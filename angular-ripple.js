@@ -11,7 +11,17 @@
   if(!angular) {
     return;
   }
+  
+  var getDirectChild = function (element, selector) {
+		return [].filter.call(element.querySelectorAll(selector), isDirectChildOf(element))[0] || null;
+  }
 
+  var isDirectChildOf = function (comparativeElement) {
+    return function(element) {
+      return element.parentNode === comparativeElement;
+    }
+  }
+  
   var rip = angular.module('angularRipple', []);
 
   rip.directive('angularRipple', function() {
@@ -20,7 +30,7 @@
       link: function (scope, element, attrs) {
         var x, y, size, offsets,
           func = function(e){
-            var ripple = this.querySelector('.angular-ripple');
+            var ripple = getDirectChild(this, '.angular-ripple');
             var eventType = e.type;
             // Ripple
             if (ripple === null) {
